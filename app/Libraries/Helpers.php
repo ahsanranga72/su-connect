@@ -38,3 +38,24 @@ if (!function_exists('storage_file_path')) {
         return asset('storage/app/public') . $dir;
     }
 }
+
+if (!function_exists('error_handler_admin')) {
+    function error_handler($validator)
+    {
+        $errors = [];
+        foreach ($validator->errors()->getMessages() as $index => $error) {
+            $errors[] = ['error_code' => $index, 'message' => trans_admin($error[0])];
+        }
+        return $errors;
+    }
+}
+
+if (!function_exists('response_structure')) {
+    function response_structure($constant, $collections = null, $errors = []): array
+    {
+        $constant = (array)$constant;
+        $constant['collections'] = $collections;
+        $constant['errors'] = $errors;
+        return $constant;
+    }
+}

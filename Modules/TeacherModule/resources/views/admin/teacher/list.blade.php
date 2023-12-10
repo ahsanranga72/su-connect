@@ -3,6 +3,8 @@
 @section('page_title', 'Admin teachers list')
 
 @push('page_css')
+    <style>
+    </style>
 @endpush
 
 @section('main_content')
@@ -26,8 +28,8 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card-header border-bottom-0 float-end">
-                            <a href="{{ route('admin.teachers.create') }}"
-                                class="btn btn-primary mb-4">Add new<i class="fa fa-plus"></i></a>
+                            <a href="{{ route('admin.teachers.create') }}" class="btn btn-primary mb-4">Add new<i
+                                    class="fa fa-plus"></i></a>
                         </div>
                     </div>
                 </div>
@@ -41,9 +43,9 @@
                                     <th class="text-center">First name</th>
                                     <th class="text-center">Last name</th>
                                     <th class="text-center">Email</th>
-                                    <th class="text-center">Phone</th>
+                                    {{-- <th class="text-center">Phone</th>
                                     <th class="text-center">Department</th>
-                                    <th class="text-center">Teacher id</th>
+                                    <th class="text-center">Teacher id</th> --}}
                                     <th class="text-center">Is active</th>
                                     <th class="text-center">Is varified</th>
                                     <th class="text-center">action</th>

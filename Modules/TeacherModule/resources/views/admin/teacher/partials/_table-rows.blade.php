@@ -1,17 +1,17 @@
 @forelse ($items as $key => $item)
     <tr>
-        <td class="align-middle text-center">{{ ($items->currentPage() - 1) * $items->perPage() + $key + 1 }}</td>
-        <td class="align-middle text-center">
+        <td class="align-middle text-center" style="width: 2%;">{{ ($items->currentPage() - 1) * $items->perPage() + $key + 1 }}</td>
+        <td class="align-middle text-center" style="width: 4%;">
             <img alt="image" class="avatar avatar-md br-7"
                 src="{{ asset('storage/users/profile_images/') }}/{{ $item['profile_image'] }}">
         </td>
-        <td class="text-nowrap align-middle">{{ $item['first_name'] }}</td>
-        <td class="text-nowrap align-middle">{{ $item['last_name'] }}</td>
-        <td class="text-nowrap align-middle">{{ $item['email'] }}</td>
-        <td class="text-nowrap align-middle">{{ $item['phone'] }}</td>
-        <td class="text-nowrap align-middle">{{ $item->teacher->department }}</td>
-        <td class="text-nowrap align-middle">{{ $item->teacher->teacher_id }}</td>
-        <td class="text-center align-middle">
+        <td class="text-nowrap align-middle" style="width: 2%;">{{ $item['first_name'] }}</td>
+        <td class="text-nowrap align-middle" style="width: 2%;">{{ $item['last_name'] }}</td>
+        <td class="text-nowrap align-middle" style="width: 2%;">{{ $item['email'] }}</td>
+        {{-- <td class="text-nowrap align-middle" style="width: 2%;">{{ $item['phone'] }}</td>
+        <td class="text-nowrap align-middle" style="width: 2%;">{{ $item->teacher->department }}</td>
+        <td class="text-nowrap align-middle" style="width: 2%;">{{ $item->teacher->teacher_id }}</td> --}}
+        <td class="text-center align-middle" style="width: 2%;">
             <div class="form-group">
                 <label class="custom-switch form-switch mb-0 pt-2">
                     <span
@@ -24,12 +24,12 @@
                 </label>
             </div>
         </td>
-        <td class="text-center align-middle">
+        <td class="text-center align-middle" style="width: 2%;">
             <div class="form-group">
                 <label class="custom-switch form-switch mb-0 pt-2">
                     <span
                         style="margin-right: 0.5rem;color: #6e7687;transition: 0.3s color;">Off</span>
-                    <input type="checkbox" {{ $item['is_active'] == 1 ? 'checked' : '' }}
+                    <input type="checkbox" {{ $item['is_verified'] == 1 ? 'checked' : '' }}
                         onchange="ajax_post('{{ route('admin.teachers.verification-update', $item['id']) }}','','')"
                         class="custom-switch-input">
                     <span class="custom-switch-indicator"></span>
@@ -37,7 +37,7 @@
                 </label>
             </div>
         </td>
-        <td class="text-center align-middle">
+        <td class="text-center align-middle" style="width: 2%;">
             <div class="g-2">
                 <a class="btn text-primary btn-sm" data-bs-toggle="tooltip" data-bs-original-title="Edit"
                     href="{{ route('admin.teachers.edit', $item['id']) }}"><span

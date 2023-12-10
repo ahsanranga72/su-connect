@@ -4,9 +4,9 @@ namespace Modules\TeacherModule\app\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Modules\TeacherModule\app\Models\Teacher;
 
 class TeacherController extends Controller
@@ -24,13 +24,10 @@ class TeacherController extends Controller
      */
     public function index(Request $request)
     {
-        $teachers = $this->user->with('teacher')->where('user_type', 'teacher-admin')->when($request->has('search'), function ($query) use ($request) {
+        $teachers = $this->user->with('teacher')->Type(TEACHER)->when($request->has('search'), function ($query) use ($request) {
             $key = explode(' ', $request['search']);
             foreach ($key as $value) {
-                $query->orWhere('first_name', 'like', "%{$value}%");
-                $query->orWhere('last_name', 'like', "%{$value}%");
-                $query->orWhere('email', 'like', "%{$value}%");
-                $query->orWhere('phone', 'like', "%{$value}%");
+                $query->Where('first_name', 'like', "%{$value}%");
             }
         })->latest()->paginate(10);
 
@@ -78,7 +75,7 @@ class TeacherController extends Controller
         $teacher->save();
 
 
-        return back()->with('success',DEFAULT_200_STORE['message']);
+        return redirect()->route('admin.teachers.index')->with('success',DEFAULT_200_STORE['message']);
     }
 
     /**
@@ -94,7 +91,8 @@ class TeacherController extends Controller
      */
     public function edit($id)
     {
-        return view('teachermodule::edit');
+        $teacher = $this->user->with('teacher')->Type(TEACHER)->findOrFail($id);
+        return view('teachermodule::admin.teacher.edit', compact('teacher'));
     }
 
     /**
@@ -102,7 +100,35 @@ class TeacherController extends Controller
      */
     public function update(Request $request, $id): RedirectResponse
     {
-        //
+        $request->validate([
+            'profile_image' => 'image',
+            'teacher_id' => 'required|string|max:50',
+            'first_name' => 'required|string|max:50',
+            'last_name' => 'required|string|max:50',
+            'email' => 'required|email|max:50',
+            'phone' => 'required|string|max:50',
+            'department' => 'required|string|max:50',
+        ]);
+
+        $user = $this->user->findOrFail($id);
+        $user->first_name = $request['first_name'];
+        $user->last_name = $request['last_name'];
+        $user->email = $request['email'];
+        $user->phone = $request['phone'];
+        $user->user_type = 'teacher-admin';
+        if($request->has('profile_image')){
+            $user->profile_image = image_uploader('users/profile_images/', 'png', $request['profile_image'], $user->profile_image);
+        }
+        $user->save();
+
+        $teacher = $this->teacher->where('user_id', $user->id)->first();
+        $teacher->user_id = $user->id;
+        $teacher->teacher_id = $request['teacher_id'];
+        $teacher->department = $request['department'];
+        $teacher->save();
+
+
+        return redirect()->route('admin.teachers.index')->with('success',DEFAULT_200_UPDATE['message']);
     }
 
     /**
@@ -110,6 +136,23 @@ class TeacherController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = $this->user->where(['id' => $id])->first();
+        file_remover('users/profile_images/', $user->profile_image);
+        $user->teacher->delete();
+        $user->delete();
+        session()->flash('success', DEFAULT_200_DELETE['message']);
+        return back();
+    }
+
+    public function status_update(string $id): JsonResponse
+    {
+        $this->user->where('id', $id)->update(['is_active' => !$this->user->find($id)->is_active]);
+        return response()->json(response_structure(DEFAULT_200_UPDATE), 200);
+    }
+
+    public function verification_update(string $id): JsonResponse
+    {
+        $this->user->where('id', $id)->update(['is_verified' => !$this->user->find($id)->is_active]);
+        return response()->json(response_structure(DEFAULT_200_UPDATE), 200);
     }
 }
