@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\StudentModule\app\Models\Student;
 use Modules\TeacherModule\app\Models\Teacher;
 
 class User extends Authenticatable
@@ -55,5 +56,10 @@ class User extends Authenticatable
     public function teacher()
     {
         return $this->hasOne(Teacher::class);
+    }
+
+    public function student()
+    {
+        return $this->hasOne(Student::class);
     }
 }

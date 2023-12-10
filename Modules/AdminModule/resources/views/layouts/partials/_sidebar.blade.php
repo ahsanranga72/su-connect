@@ -43,8 +43,8 @@
                 <li class="slide {{ request()->segment(2) == 'teachers' ? 'active is-expanded' : '' }}">
                     <a class="side-menu__item {{ request()->segment(2) == 'teachers' ? 'active is-expanded' : '' }}"
                         data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="side-menu__icon fe fe-edit-2"></i><span
-                            class="side-menu__label">Teacher</span><i class="angle fe fe-chevron-right"></i></a>
+                            class="side-menu__icon fe fe-edit-2"></i><span class="side-menu__label">Teacher</span><i
+                            class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li><a href="{{ route('admin.teachers.create') }}"
                                 class="slide-item {{ request()->is('admin/teachers/create') ? 'active' : '' }}">
@@ -53,6 +53,24 @@
                     <ul class="slide-menu">
                         <li><a href="{{ route('admin.teachers.index') }}"
                                 class="slide-item {{ request()->is('admin/teachers') ? 'active' : '' }}">
+                                List</a></li>
+                    </ul>
+                <li class="sub-category">
+                    <h3>Student</h3>
+                </li>
+                <li class="slide {{ request()->segment(2) == 'students' ? 'active is-expanded' : '' }}">
+                    <a class="side-menu__item {{ request()->segment(2) == 'students' ? 'active is-expanded' : '' }}"
+                        data-bs-toggle="slide" href="javascript:void(0)"><i
+                            class="side-menu__icon fe fe-edit-2"></i><span class="side-menu__label">Student</span><i
+                            class="angle fe fe-chevron-right"></i></a>
+                    <ul class="slide-menu">
+                        <li><a href="{{ route('admin.students.create') }}"
+                                class="slide-item {{ request()->is('admin/students/create') ? 'active' : '' }}">
+                                Add</a></li>
+                    </ul>
+                    <ul class="slide-menu">
+                        <li><a href="{{ route('admin.students.index') }}"
+                                class="slide-item {{ request()->is('admin/students') ? 'active' : '' }}">
                                 List</a></li>
                     </ul>
                 </li>

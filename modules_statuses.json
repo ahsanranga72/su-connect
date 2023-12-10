@@ -1,5 +1,6 @@
 {
     "AdminModule": true,
     "FrontendModule": true,
-    "TeacherModule": true
+    "TeacherModule": true,
+    "StudentModule": true
 }

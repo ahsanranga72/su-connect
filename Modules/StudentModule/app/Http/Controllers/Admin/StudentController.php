@@ -1,37 +1,38 @@
 <?php
 
-namespace Modules\TeacherModule\app\Http\Controllers\Admin;
+namespace Modules\StudentModule\app\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Modules\TeacherModule\app\Models\Teacher;
+use Illuminate\Http\Response;
+use Modules\StudentModule\app\Models\Student;
 
-class TeacherController extends Controller
+class StudentController extends Controller
 {
     private $user;
-    private $teacher;
+    private $student;
 
-    public function __construct(User $user, Teacher $teacher)
+    public function __construct(User $user, Student $student)
     {
         $this->user = $user;
-        $this->teacher = $teacher;
+        $this->student = $student;
     }
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $teachers = $this->user->with('teacher')->Type(TEACHER)->when($request->has('search'), function ($query) use ($request) {
+        $students = $this->user->with('student')->Type(STUDENT)->when($request->has('search'), function ($query) use ($request) {
             $key = explode(' ', $request['search']);
             foreach ($key as $value) {
                 $query->Where('first_name', 'like', "%{$value}%");
             }
         })->latest()->paginate(10);
 
-        return view('teachermodule::admin.teacher.list', compact('teachers'));
+        return view('studentmodule::admin.student.list', compact('students'));
     }
 
     /**
@@ -39,7 +40,7 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        return view('teachermodule::admin.teacher.create');
+        return view('studentmodule::admin.student.create');
     }
 
     /**
@@ -49,12 +50,13 @@ class TeacherController extends Controller
     {
         $request->validate([
             'profile_image' => 'required|image',
-            'teacher_id' => 'required|string|max:50',
+            'student_id' => 'required|string|max:50',
             'first_name' => 'required|string|max:50',
             'last_name' => 'required|string|max:50',
             'email' => 'required|email|max:50',
             'phone' => 'required|string|max:50',
             'department' => 'required|string|max:50',
+            'subject' => 'required|string|max:50',
         ]);
 
         $user = $this->user;
@@ -62,20 +64,20 @@ class TeacherController extends Controller
         $user->last_name = $request['last_name'];
         $user->email = $request['email'];
         $user->phone = $request['phone'];
-        $user->user_type = 'teacher-admin';
+        $user->user_type = 'student';
         $user->profile_image = image_uploader('users/profile_images/', 'png', $request['profile_image'], null);
         $user->is_active = 1;
         $user->is_verified = 1;
         $user->save();
 
-        $teacher = $this->teacher;
-        $teacher->user_id = $user->id;
-        $teacher->teacher_id = $request['teacher_id'];
-        $teacher->department = $request['department'];
-        $teacher->save();
+        $student = $this->student;
+        $student->user_id = $user->id;
+        $student->student_id = $request['student_id'];
+        $student->department = $request['department'];
+        $student->subject = $request['subject'];
+        $student->save();
 
-
-        return redirect()->route('admin.teachers.index')->with('success',DEFAULT_200_STORE['message']);
+        return redirect()->route('admin.students.index')->with('success',DEFAULT_200_STORE['message']);
     }
 
     /**
@@ -91,8 +93,8 @@ class TeacherController extends Controller
      */
     public function edit($id)
     {
-        $teacher = $this->user->with('teacher')->Type(TEACHER)->findOrFail($id);
-        return view('teachermodule::admin.teacher.edit', compact('teacher'));
+        $student = $this->user->with('student')->Type(STUDENT)->findOrFail($id);
+        return view('studentmodule::admin.student.edit', compact('student'));
     }
 
     /**
@@ -102,12 +104,13 @@ class TeacherController extends Controller
     {
         $request->validate([
             'profile_image' => 'image',
-            'teacher_id' => 'required|string|max:50',
+            'student_id' => 'required|string|max:50',
             'first_name' => 'required|string|max:50',
             'last_name' => 'required|string|max:50',
             'email' => 'required|email|max:50',
             'phone' => 'required|string|max:50',
             'department' => 'required|string|max:50',
+            'subject' => 'required|string|max:50',
         ]);
 
         $user = $this->user->findOrFail($id);
@@ -120,13 +123,14 @@ class TeacherController extends Controller
         }
         $user->save();
 
-        $teacher = $this->teacher->where('user_id', $user->id)->first();
-        $teacher->teacher_id = $request['teacher_id'];
-        $teacher->department = $request['department'];
-        $teacher->save();
+        $student = $this->student->where('user_id', $user->id)->first();
+        $student->student_id = $request['student_id'];
+        $student->department = $request['department'];
+        $student->subject = $request['subject'];
+        $student->save();
 
 
-        return redirect()->route('admin.teachers.index')->with('success',DEFAULT_200_UPDATE['message']);
+        return redirect()->route('admin.students.index')->with('success',DEFAULT_200_UPDATE['message']);
     }
 
     /**
@@ -136,7 +140,7 @@ class TeacherController extends Controller
     {
         $user = $this->user->where(['id' => $id])->first();
         file_remover('users/profile_images/', $user->profile_image);
-        $user->teacher->delete();
+        $user->student->delete();
         $user->delete();
         session()->flash('success', DEFAULT_200_DELETE['message']);
         return back();
