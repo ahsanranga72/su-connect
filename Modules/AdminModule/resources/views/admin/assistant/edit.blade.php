@@ -1,6 +1,6 @@
 @extends('adminmodule::layouts.master')
 
-@section('page_title', 'Admin teacher edit')
+@section('page_title', 'Admin assistant edit')
 
 @push('page_css')
 @endpush
@@ -14,7 +14,7 @@
                     <h4 class="card-title">Edit form</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.teachers.update', [$teacher['id']]) }}" method="post"
+                    <form action="{{ route('admin.assistants.update', [$assistant['id']]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -22,26 +22,19 @@
                             <div class="col-md-12 col-xl-12">
                                 <center>
                                     <img id="profile_image"
-                                        src="{{ asset('storage/users/profile_images') }}/{{ $teacher['profile_image'] }}"
-                                        onerror="this.src='{{ asset('public/assets/placeholder-image.png') }}'"
+                                        @if (!empty($assistant['profile_image'])) src="{{ asset('storage/users/profile_images') }}/{{ $assistant['profile_image'] }}"
+                                        @else
+                                        src="{{ asset('assets/placeholder-image.png') }}" @endif
                                         class="img-responsive br-5" width="300">
                                 </center>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 col-xl-6">
+                            <div class="col-md-12 col-xl-12">
                                 <div class="form-group">
                                     <label for="profile_image" class="form-label">Profile image</label>
                                     <input type="file" class="form-control" id="profile_image" name="profile_image"
                                         onchange="read_image(this, 'profile_image')">
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-xl-6">
-                                <div class="form-group">
-                                    <label for="teacher_id" class="form-label">Teacher id<span class="text-red">
-                                            *</span></label>
-                                    <input type="text" class="form-control" id="teacher_id" name="teacher_id" required
-                                        placeholder="Enter teacher id" value="{{ $teacher->teacher->teacher_id }}">
                                 </div>
                             </div>
                         </div>
@@ -51,7 +44,7 @@
                                     <label for="first_name" class="form-label">First name<span class="text-red">
                                             *</span></label>
                                     <input type="text" class="form-control" id="first_name" name="first_name" required
-                                        placeholder="Enter first name" value="{{ $teacher['first_name'] }}">
+                                        placeholder="Enter first name" value="{{ $assistant['first_name'] }}">
                                 </div>
                             </div>
                             <div class="col-md-6 col-xl-6">
@@ -59,7 +52,7 @@
                                     <label for="last_name" class="form-label">Last name<span class="text-red">
                                             *</span></label>
                                     <input type="text" class="form-control" id="last_name" name="last_name" required
-                                        placeholder="Enter last name" value="{{ $teacher['last_name'] }}">
+                                        placeholder="Enter last name" value="{{ $assistant['last_name'] }}">
                                 </div>
                             </div>
                         </div>
@@ -68,7 +61,7 @@
                                 <div class="form-group">
                                     <label for="email" class="form-label">Email<span class="text-red"> *</span></label>
                                     <input type="email" class="form-control" id="email" name="email" required
-                                        placeholder="Enter email" value="{{ $teacher['email'] }}">
+                                        placeholder="Enter email" value="{{ $assistant['email'] }}">
                                 </div>
                             </div>
                             <div class="col-md-6 col-xl-6">
@@ -76,17 +69,42 @@
                                     <label for="phone" class="form-label">Phone number<span class="text-red">
                                             *</span></label>
                                     <input type="text" class="form-control" id="phone" name="phone" required
-                                        placeholder="Enter phone number" value="{{ $teacher['phone'] }}">
+                                        placeholder="Enter phone number" value="{{ $assistant['phone'] }}">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-md-12 col-xl-12 mt-3">
+                                <button type="submit" class="btn btn-primary float-end mb-0">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Update Password</h4>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('admin.assistants.update-password', [$assistant['id']]) }}" method="post"
+                        enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <div class="row">
                             <div class="col-md-6 col-xl-6">
                                 <div class="form-group">
-                                    <label for="department" class="form-label">Department<span class="text-red">
+                                    <label for="password" class="form-label">Password<span class="text-red">
                                             *</span></label>
-                                    <input type="text" class="form-control" id="department" name="department" required
-                                        placeholder="Enter department" value="{{ $teacher->teacher->department }}">
+                                    <input type="password" class="form-control" id="password" name="password" required
+                                        placeholder="Enter password">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-6">
+                                <div class="form-group">
+                                    <label for="password_confirmation" class="form-label">Confirm password<span
+                                            class="text-red"> *</span></label>
+                                    <input type="password" class="form-control" id="password_confirmation"
+                                        name="password_confirmation" required placeholder="Enter password">
                                 </div>
                             </div>
                         </div>

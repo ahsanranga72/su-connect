@@ -1,6 +1,6 @@
 <?php
 
-const ADMIN = 'super-admin';
+const ADMIN = ['super-admin', 'assistant-admin'];
 
 const TEACHER = 'teacher-admin';
 

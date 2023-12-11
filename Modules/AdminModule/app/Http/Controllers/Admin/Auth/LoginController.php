@@ -29,7 +29,7 @@ class LoginController extends Controller
             'password' => 'required|min:6'
         ]);
 
-        if (auth()->attempt(['email' => $request->email, 'password' => $request->password, 'is_active' => 1, 'user_type' => 'super-admin'], $request->remember)) {
+        if (auth()->attempt(['email' => $request->email, 'password' => $request->password, 'is_active' => 1, 'user_type' => ADMIN], $request->remember)) {
             return redirect()->route('admin.dashboard');
         }
 
@@ -41,6 +41,6 @@ class LoginController extends Controller
     {
         auth()->logout();
         $request->session()->invalidate();
-        return redirect()->route('admin.auth.login');
+        return redirect()->route('admin.auth.login')->with('success', DEFAULT_LOGOUT_200['message']);
     }
 }

@@ -29,22 +29,6 @@ const DEFAULT_400 = [
     'message' => 'Data not found'
 ];
 
-const ADDED_TO_CART = [
-    'message' => 'Item added in your cart'
-];
-
-const ALREADY_ADDED = [
-    'message' => 'This is already added'
-];
-
-const REMOVED_FROM_CART = [
-    'message' => 'Item removed successfully'
-];
-
-const CART_EMPTY_400 = [
-    'message' => 'Please add item to cart'
-];
-
 //auth module
 const AUTH_LOGIN_200 = [
     'message' => 'successfully logged in'
@@ -78,6 +62,10 @@ const DEFAULT_200_VERIFIED = [
     'message' => 'successfully verified'
 ];
 
+const DEFAULT_200_PASSWORD_NOT_MATCH = [
+    'message' => 'Old Password not match'
+];
+
 const DEFAULT_200_PASSWORD_RESET = [
     'message' => 'password successfully reset'
 ];
@@ -102,6 +90,6 @@ const SOMETHING_WRONG_400 = [
     'message' => 'Something wrong'
 ];
 
-const ORDER_PLACE_200 = [
-    'message' => 'Order successfully placed'
+const DEFAULT_LOGOUT_200 = [
+    'message' => 'Successfully logged out'
 ];

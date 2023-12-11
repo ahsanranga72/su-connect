@@ -31,8 +31,7 @@
                         <div class="row">
                             <div class="col-md-6 col-xl-6">
                                 <div class="form-group">
-                                    <label for="profile_image" class="form-label">Profile image<span class="text-red">
-                                            *</span></label>
+                                    <label for="profile_image" class="form-label">Profile image</label>
                                     <input type="file" class="form-control" id="profile_image" name="profile_image"
                                         onchange="read_image(this, 'profile_image')">
                                 </div>

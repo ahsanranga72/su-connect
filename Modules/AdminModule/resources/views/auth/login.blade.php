@@ -28,6 +28,7 @@
     <!-- COLOR SKIN CSS -->
     <link id="theme" rel="stylesheet" type="text/css" media="all"
         href="{{ asset('assets/admin-module') }}/colors/color1.css" />
+    <link href="{{asset('assets/admin-module')}}/css/toastr.min.css" rel="stylesheet">
 
 </head>
 
@@ -123,6 +124,20 @@
 
     <!-- CUSTOM JS -->
     <script src="{{ asset('assets/admin-module') }}/js/custom.js"></script>
+    <script src="{{asset('assets/admin-module')}}/custom-js/toastr.min.js"></script>
+{{--toastr--}}
+<script>
+    "use strict";
+    @if ($errors->any())
+    @foreach ($errors->all() as $error)
+    toastr.error('{{ $error }}');
+    @endforeach
+    @endif
+
+    @if(session()->has('success'))
+    toastr.success('{{ session('success') }}');
+    @endif
+</script>
 
 
 </body>

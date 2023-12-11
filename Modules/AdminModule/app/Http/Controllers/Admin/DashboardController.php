@@ -1,20 +1,20 @@
 <?php
 
-namespace Modules\StudentModule\app\Http\Controllers;
+namespace Modules\AdminModule\app\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class StudentModuleController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('studentmodule::index');
+        return view('adminmodule::dashboard');
     }
 
     /**
@@ -22,7 +22,7 @@ class StudentModuleController extends Controller
      */
     public function create()
     {
-        return view('studentmodule::create');
+        return view('adminmodule::create');
     }
 
     /**
@@ -38,7 +38,7 @@ class StudentModuleController extends Controller
      */
     public function show($id)
     {
-        return view('studentmodule::show');
+        return view('adminmodule::show');
     }
 
     /**
@@ -46,7 +46,7 @@ class StudentModuleController extends Controller
      */
     public function edit($id)
     {
-        return view('studentmodule::edit');
+        return view('adminmodule::edit');
     }
 
     /**

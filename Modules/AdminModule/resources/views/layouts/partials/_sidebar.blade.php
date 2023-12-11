@@ -38,12 +38,31 @@
                             class="side-menu__label">Messages</span></a>
                 </li>
                 <li class="sub-category">
+                    <h3>Assistant</h3>
+                </li>
+                <li class="slide {{ request()->segment(2) == 'assistants' ? 'active is-expanded' : '' }}">
+                    <a class="side-menu__item {{ request()->segment(2) == 'assistants' ? 'active is-expanded' : '' }}"
+                        data-bs-toggle="slide" href="javascript:void(0)"><i
+                            class="side-menu__icon fe fe-users"></i><span class="side-menu__label">Assistant</span><i
+                            class="angle fe fe-chevron-right"></i></a>
+                    <ul class="slide-menu">
+                        <li><a href="{{ route('admin.assistants.create') }}"
+                                class="slide-item {{ request()->is('admin/assistants/create') ? 'active' : '' }}">
+                                Add</a></li>
+                    </ul>
+                    <ul class="slide-menu">
+                        <li><a href="{{ route('admin.assistants.index') }}"
+                                class="slide-item {{ request()->is('admin/assistants') ? 'active' : '' }}">
+                                List</a></li>
+                    </ul>
+                </li>
+                <li class="sub-category">
                     <h3>Teacher</h3>
                 </li>
                 <li class="slide {{ request()->segment(2) == 'teachers' ? 'active is-expanded' : '' }}">
                     <a class="side-menu__item {{ request()->segment(2) == 'teachers' ? 'active is-expanded' : '' }}"
                         data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="side-menu__icon fe fe-edit-2"></i><span class="side-menu__label">Teacher</span><i
+                            class="side-menu__icon fe fe-users"></i><span class="side-menu__label">Teacher</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li><a href="{{ route('admin.teachers.create') }}"
@@ -55,13 +74,14 @@
                                 class="slide-item {{ request()->is('admin/teachers') ? 'active' : '' }}">
                                 List</a></li>
                     </ul>
+                </li>
                 <li class="sub-category">
                     <h3>Student</h3>
                 </li>
                 <li class="slide {{ request()->segment(2) == 'students' ? 'active is-expanded' : '' }}">
                     <a class="side-menu__item {{ request()->segment(2) == 'students' ? 'active is-expanded' : '' }}"
                         data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="side-menu__icon fe fe-edit-2"></i><span class="side-menu__label">Student</span><i
+                            class="side-menu__icon fe fe-users"></i><span class="side-menu__label">Student</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li><a href="{{ route('admin.students.create') }}"
