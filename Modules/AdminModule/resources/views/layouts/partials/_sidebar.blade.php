@@ -38,6 +38,25 @@
                             class="side-menu__label">Messages</span></a>
                 </li>
                 <li class="sub-category">
+                    <h3>Notice board</h3>
+                </li>
+                <li class="slide {{ request()->segment(2) == 'notices' ? 'active is-expanded' : '' }}">
+                    <a class="side-menu__item {{ request()->segment(2) == 'notices' ? 'active is-expanded' : '' }}"
+                        data-bs-toggle="slide" href="javascript:void(0)"><i
+                            class="side-menu__icon fe fe-file"></i><span class="side-menu__label">Notice</span><i
+                            class="angle fe fe-chevron-right"></i></a>
+                    <ul class="slide-menu">
+                        <li><a href="{{ route('admin.notices.create') }}"
+                                class="slide-item {{ request()->is('admin/notices/create') ? 'active' : '' }}">
+                                Add</a></li>
+                    </ul>
+                    <ul class="slide-menu">
+                        <li><a href="{{ route('admin.notices.index') }}"
+                                class="slide-item {{ request()->is('admin/notices') ? 'active' : '' }}">
+                                List</a></li>
+                    </ul>
+                </li>
+                <li class="sub-category">
                     <h3>Assistant</h3>
                 </li>
                 <li class="slide {{ request()->segment(2) == 'assistants' ? 'active is-expanded' : '' }}">

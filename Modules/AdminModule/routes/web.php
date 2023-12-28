@@ -23,12 +23,18 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
     });
 
     Route::group(['middleware' => ['admin']], function () {
+        Route::get('/', 'DashboardController@index')->name('dashboard');
+        //assistant
         Route::resource('assistants', 'AssistantController');
         Route::group(['prefix' => 'assistants', 'as' => 'assistants.'], function () {
             Route::put('update-password/{id}', 'AssistantController@update_password')->name('update-password');
             Route::any('data/status-update/{id}', 'AssistantController@status_update')->name('status-update');
             Route::any('data/verification-update/{id}', 'AssistantController@verification_update')->name('verification-update');
         });
-        Route::get('/', 'DashboardController@index')->name('dashboard');
+        //notice
+        Route::resource('notices', 'NoticeController');
+        Route::group(['prefix' => 'notices', 'as' => 'notices.'], function () {
+            Route::any('data/status-update/{id}', 'AssistantController@status_update')->name('status-update');
+        });
     });
 });
