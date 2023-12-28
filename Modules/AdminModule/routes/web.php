@@ -34,7 +34,12 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
         //notice
         Route::resource('notices', 'NoticeController');
         Route::group(['prefix' => 'notices', 'as' => 'notices.'], function () {
-            Route::any('data/status-update/{id}', 'AssistantController@status_update')->name('status-update');
+            Route::any('data/status-update/{id}', 'NoticeController@status_update')->name('status-update');
+        });
+        //blog
+        Route::resource('blogs', 'BlogController');
+        Route::group(['prefix' => 'blogs', 'as' => 'blogs.'], function () {
+            Route::any('data/status-update/{id}', 'BlogController@status_update')->name('status-update');
         });
     });
 });

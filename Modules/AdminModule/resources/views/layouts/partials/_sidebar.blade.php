@@ -43,7 +43,7 @@
                 <li class="slide {{ request()->segment(2) == 'notices' ? 'active is-expanded' : '' }}">
                     <a class="side-menu__item {{ request()->segment(2) == 'notices' ? 'active is-expanded' : '' }}"
                         data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="side-menu__icon fe fe-file"></i><span class="side-menu__label">Notice</span><i
+                            class="side-menu__icon fe fe-cast"></i><span class="side-menu__label">Notice</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
                         <li><a href="{{ route('admin.notices.create') }}"
@@ -53,6 +53,25 @@
                     <ul class="slide-menu">
                         <li><a href="{{ route('admin.notices.index') }}"
                                 class="slide-item {{ request()->is('admin/notices') ? 'active' : '' }}">
+                                List</a></li>
+                    </ul>
+                </li>
+                <li class="sub-category">
+                    <h3>Blog</h3>
+                </li>
+                <li class="slide {{ request()->segment(2) == 'blogs' ? 'active is-expanded' : '' }}">
+                    <a class="side-menu__item {{ request()->segment(2) == 'blogs' ? 'active is-expanded' : '' }}"
+                        data-bs-toggle="slide" href="javascript:void(0)"><i
+                            class="side-menu__icon fe fe-edit-3"></i><span class="side-menu__label">Blog</span><i
+                            class="angle fe fe-chevron-right"></i></a>
+                    <ul class="slide-menu">
+                        <li><a href="{{ route('admin.blogs.create') }}"
+                                class="slide-item {{ request()->is('admin/blogs/create') ? 'active' : '' }}">
+                                Add</a></li>
+                    </ul>
+                    <ul class="slide-menu">
+                        <li><a href="{{ route('admin.blogs.index') }}"
+                                class="slide-item {{ request()->is('admin/blogs') ? 'active' : '' }}">
                                 List</a></li>
                     </ul>
                 </li>
