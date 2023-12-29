@@ -19,4 +19,9 @@ class Notice extends Model
     {
         //return NoticeFactory::new();
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
 }

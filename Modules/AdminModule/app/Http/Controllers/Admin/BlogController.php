@@ -52,7 +52,7 @@ class BlogController extends Controller
         ]);
 
         $blog = $this->blog;
-        $blog->image = image_uploader('blog/images/', 'png', $request['image'], null);
+        $blog->image = image_uploader('blog/images/', 'png', $request['image'], null, 900, 560);
         $blog->title = $request['title'];
         $blog->description = $request['description'];
         $blog->created_by = auth()->user()->id;
@@ -93,7 +93,7 @@ class BlogController extends Controller
         $blog = $this->blog->find($id);
         if ($blog['created_by'] == auth()->user()->id) {
             if ($request->has('image')) {
-                $blog->image = image_uploader('blog/images/', 'png', $request['image'], $blog['image']);
+                $blog->image = image_uploader('blog/images/', 'png', $request['image'], $blog['image'], 900, 560);
             }
             $blog->title = $request['title'];
             $blog->description = $request['description'];
