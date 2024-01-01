@@ -25,4 +25,9 @@ class Blog extends Model
     {
         return $this->hasOne(User::class, 'id', 'created_by');
     }
+
+    public function scopeActive($query)
+    {
+        $query->where('is_active', 1);
+    }
 }
