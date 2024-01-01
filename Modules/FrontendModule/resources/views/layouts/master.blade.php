@@ -23,6 +23,7 @@
 
     <!-- # CSS Plugins -->
     <link rel="stylesheet" href="{{ asset('assets/frontend-module') }}/plugins/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 
     <!-- # Main Style Sheet -->
     <link rel="stylesheet" href="{{ asset('assets/frontend-module') }}/css/style.css">

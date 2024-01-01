@@ -21,16 +21,17 @@ class HomeController extends Controller
      */
     public function home()
     {
-        $notices = $this->notice->active()->get();
+        $notices = $this->notice->active()->latest()->get();
         return view('frontendmodule::home', compact('notices'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function all_notices()
     {
-        return view('frontendmodule::create');
+        $notices = $this->notice->active()->latest()->paginate(5);
+        return view('frontendmodule::all-notices', compact('notices'));
     }
 
     /**

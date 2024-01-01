@@ -2,7 +2,7 @@
     <tr>
         <td class="align-middle text-center">{{ ($items->currentPage() - 1) * $items->perPage() + $key + 1 }}</td>
         <td class="text-nowrap align-middle">{{ $item['title'] }}</td>
-        <td class="text-nowrap align-middle">{{ $item['description'] }}</td>
+        <td class="text-nowrap align-middle">{{substr($item['description'], 0, 20). '...'}}</td>
         <td class="text-center align-middle">
             <div class="form-group">
                 <label class="custom-switch form-switch mb-0 pt-2">

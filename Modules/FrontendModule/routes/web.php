@@ -4,4 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\FrontendModule\app\Http\Controllers\FrontendModuleController;
 use Modules\FrontendModule\app\Http\Controllers\HomeController;
 
-Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::group(['as' => 'frontend.'], function () {
+    Route::get('/', [HomeController::class, 'home'])->name('home');
+    Route::get('all-notices', [HomeController::class, 'all_notices'])->name('all-notices');
+});

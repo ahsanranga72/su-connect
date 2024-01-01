@@ -5,19 +5,19 @@
 @push('css')
     <style>
         .notice-board {
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            background-color: #f0f0f0;
-            padding: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            border: none;
         }
-
         .scrolling-text {
             animation: scrollLeft 20s linear infinite;
             white-space: nowrap;
+            display: flex;
+            align-items: center;
+            z-index: -1;
         }
-
         @keyframes scrollLeft {
             0% {
                 transform: translateX(100%);
@@ -27,34 +27,31 @@
                 transform: translateX(-100%);
             }
         }
-
-        .view-all-button {
-            margin-left: auto;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: #fff;
-            text-decoration: none;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
     </style>
 @endpush
 
 @section('content')
-    <div class="notice-board">
-        <div class="scrolling-text">
-            @forelse ($notices as $notice)
-                <span>{{ $notice->description }}</span>
-                @if(!$loop->last)
-                <span style="margin: 0 10px; color:red;">.</span>
-                @endif
-            @empty
-                <span>Noting added yet !</span>
-            @endforelse
+    <section class="section">
+        <div class="row">
+            <div class="col-md-2">
+                <p class="notice-board">Notice board</p>
+            </div>
+            <div class="col-md-8 scrolling-text">
+                @forelse ($notices as $notice)
+                    <p>{{ $notice['description'] }}
+                        @if (!$loop->last)
+                            <i class="bi bi-flower2 mx-2" style="color: #4CAF50"></i>
+                        @endif
+                    </p>
+                @empty
+                    <p>No notices yet.</p>
+                @endforelse
+            </div>
+            <div class="col-md-2">
+                <a href="{{ route('frontend.all-notices') }}" class="btn btn-primary float-right">View all</a>
+            </div>
         </div>
-        <a href="#" class="view-all-button">View All</a>
-    </div>
+    </section>
 
     <main>
         <section class="section">

@@ -2,6 +2,7 @@
 
 namespace Modules\FrontendModule\app\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,6 +23,7 @@ class FrontendModuleServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'database/migrations'));
+        Paginator::useBootstrapFour();
     }
 
     /**

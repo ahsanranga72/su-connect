@@ -96,8 +96,9 @@ h6, .h6 {
   border-color: #13AE6F;
 }
 .btn-primary:hover, .btn-primary:active, .btn-primary.active .btn-primary:focus, .btn-primary.focus {
-  background: #13AE6F !important;
+  color: #13AE6F !important;
   border-color: #13AE6F !important;
+  background: #fff !important;
 }
 
 .btn-outline-primary {
