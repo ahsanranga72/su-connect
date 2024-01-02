@@ -30,7 +30,7 @@ class LoginController extends Controller
         ]);
 
         if (auth()->attempt(['email' => $request->email, 'password' => $request->password, 'is_active' => 1, 'user_type' => STUDENT], $request->remember)) {
-            return redirect()->route('frontend.home');
+            return redirect()->route('frontend.home')->with('success', AUTH_LOGIN_200['message']);
         }
 
         return redirect()->back()->withInput($request->only('email', 'remember'))

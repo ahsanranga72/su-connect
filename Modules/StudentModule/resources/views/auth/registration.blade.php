@@ -14,7 +14,8 @@
     <section class="section">
         <div class="container">
             <h1 class="h1 text-center mb-5">Student registration</h1>
-            <form method="POST" action="{{ route('student.auth.registration') }}" name="registration-form">
+            <form method="POST" action="{{ route('student.auth.registration') }}" name="registration-form"
+                enctype="multipart/form-data">
                 @csrf
                 <div class="row justify-content-center">
                     <div class="col-6 mb-4">

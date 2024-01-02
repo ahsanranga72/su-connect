@@ -7,14 +7,17 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Modules\StudentModule\app\Models\Student;
 
 class RegistrationController extends Controller
 {
     private $user;
+    private $student;
 
-    public function __construct(User $user)
+    public function __construct(User $user, Student $student)
     {
         $this->user = $user;
+        $this->student = $student;
     }
     /**
      * Display a listing of the resource.
@@ -31,31 +34,38 @@ class RegistrationController extends Controller
     {
         $request->validate([
             'first_name' => 'required',
+            'last_name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:8|confirmed',
-            'password_confirmation' => 'required|min:8',
+            'phone' => 'required',
+            'password' => 'required|min:8',
+            'confirm_password' => 'required|same:password',
+            'student_id' => 'required',
+            'department' => 'required',
+            'subject' => 'required',
         ]);
 
         $user = $this->user;
         $user->first_name = $request['first_name'];
-        $user->last_name = $request['first_name'];
+        $user->last_name = $request['last_name'];
         $user->email = $request['email'];
         $user->phone = $request['phone'];
         $user->password = bcrypt($request['password']);
-        $user->user_type = CUSTOMER;
+        $user->user_type = STUDENT;
         if ($request->has('profile_image')) {
-            $user->profile_image = image_uploader('users/profile_images/', 'png', $request['profile_image'], !empty($user['profile_image']) ? $user['profile_image'] : null);
+            $user->profile_image = image_uploader('users/profile_images/', 'png', $request['profile_image'], null);
         }
-        $user->is_active = 1;
-        $user->is_verified = 1;
+        $user->is_active = 0;
+        $user->is_verified = 0;
         $user->save();
 
-        if (auth()->attempt(['email' => $user->email, 'password' => $request->password, 'is_active' => 1, 'user_type' => CUSTOMER], $request->remember)) {
-            return redirect()->route('home')->with('success', AUTH_REGISTER_200['message']);
-        }
+        $student = $this->student;
+        $student['user_id'] = $user->id;
+        $student['student_id'] = $request['student_id'];
+        $student['department'] = $request['department'];
+        $student['subject'] = $request['subject'];
+        $student->save();
 
-        return redirect()->back()->withInput($request->only('email', 'remember'))
-            ->withErrors(['Something Wrong !']);
+        return redirect()->route('frontend.home')->with('success', DEFAULT_REGISTRATION_REQUEST_200['message']);
     }
 
     /**

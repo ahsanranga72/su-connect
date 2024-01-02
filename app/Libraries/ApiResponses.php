@@ -90,6 +90,6 @@ const SOMETHING_WRONG_400 = [
     'message' => 'Something wrong'
 ];
 
-const DEFAULT_LOGOUT_200 = [
-    'message' => 'Successfully logged out'
+const DEFAULT_REGISTRATION_REQUEST_200 = [
+    'message' => 'Reagistration request successfully submited.'
 ];
