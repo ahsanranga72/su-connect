@@ -16,14 +16,21 @@
                     </li>
                     <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Articles
+                            Students
                         </a>
-                        <div class="dropdown-menu"> <a class="dropdown-item" href="travel.html">Travel</a>
-                            <a class="dropdown-item" href="travel.html">Lifestyle</a>
-                            <a class="dropdown-item" href="travel.html">Cruises</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ route('student.auth.login') }}">Log in</a>
+                            <a class="dropdown-item" href="{{ route('student.auth.registration') }}">Registration</a>
                         </div>
                     </li>
-                    <li class="nav-item"> <a class="nav-link" href="contact.html">Contact</a>
+                    <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Teachers
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Log in</a>
+                            <a class="dropdown-item" href="#">Registration</a>
+                        </div>
                     </li>
                 </ul>
             </div>
