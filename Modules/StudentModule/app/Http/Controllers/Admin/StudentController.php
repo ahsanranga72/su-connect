@@ -154,7 +154,7 @@ class StudentController extends Controller
 
     public function verification_update(string $id): JsonResponse
     {
-        $this->user->where('id', $id)->update(['is_verified' => !$this->user->find($id)->is_active]);
+        $this->user->where('id', $id)->update(['is_verified' => !$this->user->find($id)->is_verified]);
         return response()->json(response_structure(DEFAULT_200_UPDATE), 200);
     }
 }

@@ -28,8 +28,8 @@
                             Teachers
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Log in</a>
-                            <a class="dropdown-item" href="#">Registration</a>
+                            <a class="dropdown-item" href="{{ route('teacher.auth.login') }}">Log in</a>
+                            <a class="dropdown-item" href="{{ route('teacher.auth.registration') }}">Registration</a>
                         </div>
                     </li>
                 </ul>

@@ -1,25 +1,20 @@
 <?php
 
-namespace Modules\StudentModule\app\Http\Controllers\Student\Auth;
+namespace Modules\TeacherModule\app\Http\Controllers\Teacher\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class LoginController extends Controller
 {
-    private $user;
-
-    public function __construct(User $user)
-    {
-        $this->user = $user;
-    }
-
+    /**
+     * Display a listing of the resource.
+     */
     public function login()
     {
-        return view('studentmodule::auth.login');
+        return view('teachermodule::auth.login');
     }
 
     public function submit(Request $request): RedirectResponse
@@ -29,8 +24,8 @@ class LoginController extends Controller
             'password' => 'required|min:8'
         ]);
 
-        if (auth()->attempt(['email' => $request->email, 'password' => $request->password, 'is_active' => 1, 'user_type' => STUDENT], $request->remember)) {
-            return redirect()->route('frontend.home')->with('success', AUTH_LOGIN_200['message']);
+        if (auth()->attempt(['email' => $request->email, 'password' => $request->password, 'is_active' => 1, 'user_type' => TEACHER], $request->remember)) {
+            return redirect()->route('teacher.dashboard')->with('success', AUTH_LOGIN_200['message']);
         }
 
         return redirect()->back()->withInput($request->only('email', 'remember'))

@@ -21,3 +21,18 @@ Route::group(['middleware' => 'admin', 'namespace' => 'Admin', 'prefix' => 'admi
         Route::any('data/verification-update/{id}', 'TeacherController@verification_update')->name('verification-update');
     });
 });
+//teacher
+Route::group(['namespace' => 'Teacher', 'prefix' => 'teacher', 'as' => 'teacher.'], function () {
+    /*auth*/
+    Route::group(['namespace' => 'Auth', 'prefix' => 'auth', 'as' => 'auth.'], function () {
+        Route::get('login', 'LoginController@login')->name('login');
+        Route::post('login', 'LoginController@submit')->name('login');
+        Route::post('logout', 'LoginController@logout')->name('logout');
+        Route::get('registration', 'RegistrationController@registration')->name('registration');
+        Route::post('registration', 'RegistrationController@submit')->name('registration');
+    });
+
+    Route::group(['middleware' => 'teacher'], function () {
+        Route::get('/', 'DashboardController@dashboard')->name('dashboard');
+    });
+});
