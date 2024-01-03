@@ -14,24 +14,36 @@
                 <ul class="navbar-nav mx-auto mt-3 mt-lg-0">
                     <li class="nav-item"> <a class="nav-link" href="{{ route('frontend.home') }}">Home</a>
                     </li>
-                    <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Students
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{ route('student.auth.login') }}">Log in</a>
-                            <a class="dropdown-item" href="{{ route('student.auth.registration') }}">Registration</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Teachers
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{ route('teacher.auth.login') }}">Log in</a>
-                            <a class="dropdown-item" href="{{ route('teacher.auth.registration') }}">Registration</a>
-                        </div>
-                    </li>
+                    @if (!auth()->check())
+                        <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Students
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ route('student.auth.login') }}">Log in</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('student.auth.registration') }}">Registration</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Teachers
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ route('teacher.auth.login') }}">Log in</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('teacher.auth.registration') }}">Registration</a>
+                            </div>
+                        </li>
+                    @endif
+                    @if (auth()->check() &&
+                            auth()->user()->type(STUDENT))
+                        <li class="nav-item"> <a class="nav-link"
+                                href="{{ route('student.teachers-list') }}">
+                                Teachers
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </nav>

@@ -53,6 +53,11 @@ class User extends Authenticatable
         return $query->where('user_type', $type);
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
+
     public function teacher()
     {
         return $this->hasOne(Teacher::class);

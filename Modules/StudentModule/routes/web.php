@@ -31,4 +31,6 @@ Route::group(['namespace' => 'Student', 'prefix' => 'student', 'as' => 'student.
         Route::get('registration', 'RegistrationController@registration')->name('registration');
         Route::post('registration', 'RegistrationController@submit')->name('registration');
     });
+
+    Route::get('teachers-list', 'FrontendController@teachers_list')->name('teachers-list');
 });
