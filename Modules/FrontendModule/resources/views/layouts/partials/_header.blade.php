@@ -43,6 +43,14 @@
                                 Teachers
                             </a>
                         </li>
+                        <li class="nav-item"> <a class="nav-link"
+                                href="#" onclick="$('#logout-form').submit()">
+                                Log out
+                            </a>
+                        </li>
+                        <form action="{{ route('student.auth.logout') }}" method="post" hidden id="logout-form">
+                            @csrf
+                        </form>
                     @endif
                 </ul>
             </div>

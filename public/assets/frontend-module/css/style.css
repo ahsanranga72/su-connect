@@ -324,13 +324,6 @@ a:hover {
   margin: 0;
   position: relative;
 }
-.navigation .nav-item::after {
-  position: absolute;
-  content: "/";
-  right: -2px;
-  top: 50%;
-  transform: translateY(-50%);
-}
 @media (max-width: 991px) {
   .navigation .nav-item::after {
     display: none;

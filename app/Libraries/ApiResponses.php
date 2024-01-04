@@ -93,3 +93,7 @@ const SOMETHING_WRONG_400 = [
 const DEFAULT_REGISTRATION_REQUEST_200 = [
     'message' => 'Reagistration request successfully submited.'
 ];
+
+const DEFAULT_FOLLOW_REQUEST_200 = [
+    'message' => 'Follow request successfully submited.'
+];

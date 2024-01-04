@@ -7,34 +7,43 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Modules\StudentModule\app\Models\FollowRequest;
 use Modules\TeacherModule\app\Models\Teacher;
 
 class FrontendController extends Controller
 {
     private $teacher;
     private $user;
+    private $follow_request;
 
-    public function __construct(Teacher $teacher, User $user)
+    public function __construct(Teacher $teacher, User $user, FollowRequest $follow_request)
     {
         $this->teacher = $teacher;
         $this->user = $user;
+        $this->follow_request = $follow_request;
     }
     /**
      * Display a listing of the resource.
      */
     public function teachers_list()
     {
-        $teachers = $this->user->active()->type(TEACHER)->get();
-
-        return view('studentmodule::frontend.teachers-list')
+        $teachers = $this->user->with('teacher')->active()->type(TEACHER)->latest()->paginate(10);
+        $follow_requests = $this->follow_request->where('student_user_id', auth()->user()->id)->get();
+        return view('studentmodule::frontend.teachers-list', compact('teachers', 'follow_requests'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function send_follow_request($teacher_user_id)
     {
-        return view('studentmodule::create');
+        $follow_request = $this->follow_request;
+        $follow_request['teacher_user_id'] = $teacher_user_id;
+        $follow_request['student_user_id'] = auth()->user()->id;
+        $follow_request['status'] = 'pending';
+        $follow_request->save();
+
+        return back()->with('success', DEFAULT_FOLLOW_REQUEST_200['message']);
     }
 
     /**

@@ -31,6 +31,9 @@ Route::group(['namespace' => 'Student', 'prefix' => 'student', 'as' => 'student.
         Route::get('registration', 'RegistrationController@registration')->name('registration');
         Route::post('registration', 'RegistrationController@submit')->name('registration');
     });
-
-    Route::get('teachers-list', 'FrontendController@teachers_list')->name('teachers-list');
+    //student middleware
+    Route::group(['middleware' => 'student'], function () {
+        Route::get('teachers-list', 'FrontendController@teachers_list')->name('teachers-list');
+        Route::get('send-follow-request/{teacher_user_id}', 'FrontendController@send_follow_request')->name('send-follow-request');
+    });
 });
