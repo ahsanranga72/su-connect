@@ -5,15 +5,35 @@ namespace Modules\TeacherModule\app\Http\Controllers\Teacher;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Modules\StudentModule\app\Models\FollowRequest;
 
-class DashboardController extends Controller
+class FollowRequestController extends Controller
 {
+    private $follow_request;
+
+    public function __construct(FollowRequest $follow_request)
+    {
+        $this->follow_request = $follow_request;
+    }
     /**
      * Display a listing of the resource.
      */
-    public function dashboard()
+    public function get()
     {
-        return view('teachermodule::dashboard');
+        $follow_requests = $this->follow_request->with('student')
+                            ->where('teacher_user_id', auth()->user()->id)
+                            ->latest()->paginate(10);
+
+        return view('teachermodule::follow-request', compact('follow_requests'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('teachermodule::create');
     }
 
     /**

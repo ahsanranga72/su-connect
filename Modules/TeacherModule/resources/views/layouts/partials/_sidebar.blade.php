@@ -57,6 +57,15 @@
                                 List</a></li>
                     </ul>
                 </li>
+                <li class="sub-category">
+                    <h3>Follow requests</h3>
+                </li>
+                <li class="slide {{ request()->segment(3) == 'blogs' ? 'active is-expanded' : '' }}">
+                    <a class="side-menu__item {{ request()->segment(3) == 'blogs' ? 'active is-expanded' : '' }}"
+                        data-bs-toggle="slide" href="{{ route('teacher.follow-request.get') }}"><i
+                            class="side-menu__icon fe fe-list"></i><span class="side-menu__label">Follow
+                            requests</span></a>
+                </li>
             </ul>
             <div style="height: 100px;"></div>
             <div class="slide-right" id="slide-right">
