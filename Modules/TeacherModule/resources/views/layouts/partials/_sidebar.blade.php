@@ -47,13 +47,13 @@
                             class="side-menu__icon fe fe-edit-3"></i><span class="side-menu__label">Blog</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu">
-                        <li><a href="{{ route('admin.blogs.create') }}"
-                                class="slide-item {{ request()->is('admin/blogs/create') ? 'active' : '' }}">
+                        <li><a href="{{ route('teacher.blogs.create') }}"
+                                class="slide-item {{ request()->is('teacher/blogs/create') ? 'active' : '' }}">
                                 Add</a></li>
                     </ul>
                     <ul class="slide-menu">
-                        <li><a href="{{ route('admin.blogs.index') }}"
-                                class="slide-item {{ request()->is('admin/blogs') ? 'active' : '' }}">
+                        <li><a href="{{ route('teacher.blogs.index') }}"
+                                class="slide-item {{ request()->is('teacher/blogs') ? 'active' : '' }}">
                                 List</a></li>
                     </ul>
                 </li>

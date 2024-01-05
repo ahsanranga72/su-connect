@@ -33,11 +33,18 @@ Route::group(['namespace' => 'Teacher', 'prefix' => 'teacher', 'as' => 'teacher.
     });
 
     Route::group(['middleware' => 'teacher'], function () {
+        //dashboard
         Route::get('/', 'DashboardController@dashboard')->name('dashboard');
+        //follow request
         Route::group(['prefix' => 'follow-request', 'as' => 'follow-request.'], function() {
             Route::get('get', 'FollowRequestController@get')->name('get');
             Route::get('accept/{id}', 'FollowRequestController@accept')->name('accept');
             Route::delete('destroy/{id}', 'FollowRequestController@destroy')->name('destroy');
+        });
+        //blog
+        Route::resource('blogs', 'BlogController');
+        Route::group(['prefix' => 'blogs', 'as' => 'blogs.'], function () {
+            Route::any('data/status-update/{id}', 'BlogController@status_update')->name('status-update');
         });
     });
 });
