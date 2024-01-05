@@ -35,7 +35,10 @@ class HomeController extends Controller
         $blogs = $this->blog->with('owner')->active();
         
         if (auth()->check() && auth()->user()->user_type === STUDENT) {
-            $follow_teachers_user_id = $this->follow_request->where('student_user_id', auth()->user()->id)->pluck('teacher_user_id')->toArray();
+            $follow_teachers_user_id = $this->follow_request
+                                        ->where('student_user_id', auth()->user()->id)
+                                        ->where('status', 'accepted')
+                                        ->pluck('teacher_user_id')->toArray();
             $admin_teacher_ids = array_merge($admin_ids, $follow_teachers_user_id);
 
             $blogs = $blogs->whereIn('created_by', $admin_teacher_ids);

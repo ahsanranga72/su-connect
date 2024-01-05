@@ -163,8 +163,8 @@
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#028088",
-                confirmButtonText: "yes",
-                cancelButtonText: "no",
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
                 closeOnConfirm: false,
                 closeOnCancel: true
             }, function(isConfirm) {
