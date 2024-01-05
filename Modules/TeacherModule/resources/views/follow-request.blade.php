@@ -60,16 +60,22 @@
                                         </td>
                                         <td class="text-center align-middle" style="width: 2%;">
                                             <div class="g-2">
-                                                <a class="btn btn-primary btn-sm" data-bs-toggle="tooltip"
-                                                    href="{{ route('admin.teachers.edit', $follow_request['id']) }}">Accept</a>
-                                                <a class="btn btn-danger btn-sm" href="javascript:void(0)"
-                                                    data-bs-toggle="tooltip" data-bs-original-title="Delete"
-                                                    onclick="alert_function('delete-{{ $follow_request['id'] }}')">Delete</a>
-                                                <form action="{{ route('admin.teachers.destroy', $follow_request['id']) }}"
-                                                    id="delete-{{ $follow_request['id'] }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
+                                                @if ($follow_request->status == 'accepted')
+                                                    <a class="btn btn-warning" data-bs-toggle="tooltip"
+                                                        href="#">Accepted</a>
+                                                @else
+                                                    <a class="btn btn-primary btn-sm" data-bs-toggle="tooltip"
+                                                        href="{{ route('teacher.follow-request.accept', $follow_request['id']) }}">Accept</a>
+                                                    <a class="btn btn-danger btn-sm" href="javascript:void(0)"
+                                                        data-bs-toggle="tooltip" data-bs-original-title="Delete"
+                                                        onclick="alert_function('delete-{{ $follow_request['id'] }}')">Delete</a>
+                                                    <form
+                                                        action="{{ route('teacher.follow-request.destroy', $follow_request['id']) }}"
+                                                        id="delete-{{ $follow_request['id'] }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>

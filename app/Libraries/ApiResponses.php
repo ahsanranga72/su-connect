@@ -31,27 +31,27 @@ const DEFAULT_400 = [
 
 //auth module
 const AUTH_LOGIN_200 = [
-    'message' => 'successfully logged in'
+    'message' => 'Successfully logged in'
 ];
 
 const AUTH_REGISTER_200 = [
-    'message' => 'successfully registered'
+    'message' => 'Successfully registered'
 ];
 
 const AUTH_LOGOUT_200 = [
-    'message' => 'successfully logged out'
+    'message' => 'Successfully logged out'
 ];
 
 const AUTH_LOGIN_401 = [
-    'message' => 'user unauthenticated'
+    'message' => 'User unauthenticated'
 ];
 
 const AUTH_LOGIN_403 = [
-    'message' => 'wrong credentials'
+    'message' => 'Wrong credentials'
 ];
 
 const AUTH_INACTIVE_403 = [
-    'message' => 'user is blocked'
+    'message' => 'User is blocked'
 ];
 
 const DEFAULT_OTP_SENT_200 = [
@@ -59,7 +59,7 @@ const DEFAULT_OTP_SENT_200 = [
 ];
 
 const DEFAULT_200_VERIFIED = [
-    'message' => 'successfully verified'
+    'message' => 'Successfully verified'
 ];
 
 const DEFAULT_200_PASSWORD_NOT_MATCH = [
@@ -67,11 +67,11 @@ const DEFAULT_200_PASSWORD_NOT_MATCH = [
 ];
 
 const DEFAULT_200_PASSWORD_RESET = [
-    'message' => 'password successfully reset'
+    'message' => 'Password successfully reset'
 ];
 
 const DEFAULT_200_USER_REMOVED = [
-    'message' => 'successfully removed account'
+    'message' => 'Successfully removed account'
 ];
 
 const DEFAULT_USER_404 = [

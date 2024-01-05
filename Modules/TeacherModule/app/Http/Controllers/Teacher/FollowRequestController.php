@@ -31,41 +31,13 @@ class FollowRequestController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function accept($id)
     {
-        return view('teachermodule::create');
-    }
+        $follow_request = $this->follow_request->find($id);
+        $follow_request['status'] = 'accepted';
+        $follow_request->save();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request): RedirectResponse
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
-    {
-        return view('teachermodule::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('teachermodule::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id): RedirectResponse
-    {
-        //
+        return back()->with('success', 'Successfully accepted.');
     }
 
     /**
@@ -73,6 +45,7 @@ class FollowRequestController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->follow_request->find($id)->delete();
+        return back()->with('success', DEFAULT_200_DELETE['message']);
     }
 }

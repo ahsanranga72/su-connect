@@ -37,6 +37,7 @@ Route::group(['namespace' => 'Teacher', 'prefix' => 'teacher', 'as' => 'teacher.
         Route::group(['prefix' => 'follow-request', 'as' => 'follow-request.'], function() {
             Route::get('get', 'FollowRequestController@get')->name('get');
             Route::get('accept/{id}', 'FollowRequestController@accept')->name('accept');
+            Route::delete('destroy/{id}', 'FollowRequestController@destroy')->name('destroy');
         });
     });
 });
