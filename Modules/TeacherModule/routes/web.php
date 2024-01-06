@@ -46,5 +46,9 @@ Route::group(['namespace' => 'Teacher', 'prefix' => 'teacher', 'as' => 'teacher.
         Route::group(['prefix' => 'blogs', 'as' => 'blogs.'], function () {
             Route::any('data/status-update/{id}', 'BlogController@status_update')->name('status-update');
         });
+        //message
+        Route::get('chat', 'MessageController@index')->name('chat');
+        Route::get('message/{id}', 'MessageController@getMessage')->name('message');
+        Route::post('message', 'MessageController@sendMessage');
     });
 });
