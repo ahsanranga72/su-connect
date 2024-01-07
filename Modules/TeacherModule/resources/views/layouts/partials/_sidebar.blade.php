@@ -34,7 +34,7 @@
                     <h3 class="text-upper">Chat</h3>
                 </li>
                 <li class="slide">
-                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="#"><i
+                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{ route('teacher.chat') }}"><i
                             class="side-menu__icon fe fe-message-circle"></i><span
                             class="side-menu__label">Messages</span></a>
                 </li>

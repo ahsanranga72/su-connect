@@ -41,5 +41,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
         Route::group(['prefix' => 'blogs', 'as' => 'blogs.'], function () {
             Route::any('data/status-update/{id}', 'BlogController@status_update')->name('status-update');
         });
+        //message
+        Route::get('chat', 'MessageController@index')->name('chat');
+        Route::get('message/{id}', 'MessageController@getMessage')->name('message');
+        Route::post('message', 'MessageController@sendMessage');
     });
 });
