@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\TeacherModule\app\Http\Controllers\Teacher;
+namespace Modules\StudentModule\app\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -27,11 +27,11 @@ class MessageController extends Controller
     public function index()
     {
         $admin_ids = $this->user->active()->whereIn('user_type', ADMIN)->pluck('id')->toArray();
-        $follow_students_user_id = $this->follow_request
-            ->where('teacher_user_id', auth()->user()->id)
+        $follow_teachers_user_id = $this->follow_request
+            ->where('student_user_id', auth()->user()->id)
             ->where('status', 'accepted')
-            ->pluck('student_user_id')->toArray();
-        $admin_students_ids = array_merge($admin_ids, $follow_students_user_id);
+            ->pluck('teacher_user_id')->toArray();
+        $admin_teacher_ids = array_merge($admin_ids, $follow_teachers_user_id);
         // select all Users + count how many message are unread from the selected user
         $users = DB::table('users')
             ->select('users.id', 'users.first_name', 'users.last_name', 'users.user_type', DB::raw('count(is_read) as unread'))
@@ -41,12 +41,12 @@ class MessageController extends Controller
                     ->where('messages.to', '=', auth()->id());
             })
             ->where('users.id', '!=', auth()->id())
-            ->whereIn('users.id', $admin_students_ids)
+            ->whereIn('users.id', $admin_teacher_ids)
             ->groupBy('users.id', 'users.first_name', 'users.last_name', 'users.user_type')
             ->orderByDesc(DB::raw('(SELECT MAX(created_at) FROM messages WHERE messages.to = users.id)'))
             ->get();
 
-        return view('teachermodule::message.chat', ['users' => $users]);
+        return view('studentmodule::message.chat', ['users' => $users]);
     }
     // get all Messages
     public function getMessage($user_id)
@@ -63,7 +63,7 @@ class MessageController extends Controller
             $query->where('from', $my_id)->where('to', $user_id);
         })->get();
 
-        return view('teachermodule::message.message', ['messages' => $messages]);
+        return view('studentmodule::message.message', ['messages' => $messages]);
     }
 
     // send new message

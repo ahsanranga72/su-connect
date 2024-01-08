@@ -1,8 +1,8 @@
-@extends('teachermodule::layouts.master')
+@extends('frontendmodule::layouts.master')
 
-@section('page_title', 'Teacher chat')
+@section('title', 'Messages')
 
-@push('page_css')
+@push('css')
     <style>
         ul {
             margin: 0;
@@ -110,10 +110,10 @@
     </style>
 @endpush
 
-@section('main_content')
-    <div class="row row-cards">
-        <div class="col-md-4">
-            <div class="card">
+@section('content')
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4">
                 <div class="user-wrapper">
                     <ul class="users">
                         @foreach ($users as $user)
@@ -124,7 +124,8 @@
 
                                 <div class="media">
                                     <div class="media-body">
-                                        <p class="name"><strong>{{ $user->first_name }} {{ $user->last_name }}</strong>
+                                        <p class="name"><strong>{{ $user->first_name }}
+                                                {{ $user->last_name }}</strong>
                                         </p>
                                         <p class="email">{{ $user->user_type }}</p>
                                     </div>
@@ -134,14 +135,14 @@
                     </ul>
                 </div>
             </div>
-        </div>
-        <div class="col-md-8" id="messages">
-            <h1 class="h1">Select one user for start conversations</h1>
+            <div class="col-md-8" id="messages">
+                <h1 class="h1">Select one user for start conversations</h1>
+            </div>
         </div>
     </div>
 @endsection
 
-@push('page_js')
+@push('js')
     <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
     <script>
         var receiver_id = '';

@@ -38,21 +38,39 @@
                     @endif
                     @if (auth()->check() &&
                             auth()->user()->type(STUDENT))
-                        <li class="nav-item"> <a class="nav-link"
-                                href="{{ route('student.teachers-list') }}">
+                        <li class="nav-item"> <a class="nav-link" href="{{ route('student.teachers-list') }}">
                                 Teachers
                             </a>
                         </li>
-                        <li class="nav-item"> <a class="nav-link"
-                                href="#" onclick="$('#logout-form').submit()">
-                                Log out
+                        <li class="nav-item"> <a class="nav-link" href="{{ route('student.chat') }}">
+                                Messages
                             </a>
                         </li>
-                        <form action="{{ route('student.auth.logout') }}" method="post" hidden id="logout-form">
-                            @csrf
-                        </form>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <img 
+                                    @if (!empty(auth()->user()['profile_image']))
+                                        src="{{ asset('storage/users/profile_images') }}/{{ auth()->user()['profile_image'] }}"
+                                    @else
+                                        src="{{ asset('assets/default-user-icon.jpg') }}" 
+                                    @endif
+                                    height="30" width="30" alt="User Image" class="rounded-circle">
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="#" onclick="$('#logout-form').submit()">
+                                    Log out
+                                </a>
+                                <form action="{{ route('student.auth.logout') }}" method="post" hidden
+                                    id="logout-form">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
                     @endif
                 </ul>
+
             </div>
         </nav>
     </div>
