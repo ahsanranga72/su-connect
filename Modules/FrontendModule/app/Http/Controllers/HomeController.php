@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\AdminModule\app\Models\Blog;
+use Modules\AdminModule\app\Models\BlogComment;
 use Modules\AdminModule\app\Models\Notice;
 use Modules\StudentModule\app\Models\FollowRequest;
 
@@ -17,13 +18,15 @@ class HomeController extends Controller
     private $blog;
     private $follow_request;
     private $user;
+    private $blog_comment;
 
-    public function __construct(Notice $notice, Blog $blog, FollowRequest $follow_request, User $user)
+    public function __construct(Notice $notice, Blog $blog, FollowRequest $follow_request, User $user, BlogComment $blog_comment)
     {
         $this->notice = $notice;
         $this->blog = $blog;
         $this->follow_request = $follow_request;
         $this->user = $user;
+        $this->blog_comment = $blog_comment;
     }
     /**
      * Display a listing of the resource.
@@ -65,39 +68,25 @@ class HomeController extends Controller
      */
     public function blog_details($id)
     {
-        $blog = $this->blog->with('owner')->find($id);
+        $blog = $this->blog->with('owner', 'comments.owner')->find($id);
         return view('frontendmodule::blog-details', compact('blog'));
     }
 
     /**
      * Show the specified resource.
      */
-    public function show($id)
+    public function blog_comment(Request $request, $id)
     {
-        return view('frontendmodule::show');
-    }
+        $request->validate([
+            'comment' => 'required|string'
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('frontendmodule::edit');
-    }
+        $blog_comment = $this->blog_comment;
+        $blog_comment['blog_id'] = $id;
+        $blog_comment['comment'] = $request['comment'];
+        $blog_comment['created_by'] = auth()->id();
+        $blog_comment->save();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id): RedirectResponse
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        //
+        return back()->with('success', DEFAULT_200_STORE['message']);
     }
 }

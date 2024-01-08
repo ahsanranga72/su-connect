@@ -43,6 +43,56 @@
                             {!! $blog['description'] !!}
                         </div>
                     </article>
+                    <hr>
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1>Comments</h1>
+                        </div>
+                        <div class="card-body">
+                            @forelse ($blog->comments as $comment)
+                                <div class="row">
+                                    <div class="col-10">
+                                        <h3>
+                                            {{ $comment->owner->first_name }} {{ $comment->owner->last_name }} (
+                                            {{ $comment->owner->user_type }} )
+                                        </h3>
+                                    </div>
+                                    <div class="col-2">
+                                        <p class="float-right">{{ $comment->created_at->diffForHumans() }}</p>
+                                    </div>
+                                    <div class="col-12">
+                                        <p>{{ $comment->comment }}</p>
+                                    </div>
+                                </div>
+                            @empty
+                            <div class="row">
+                                <div class="col-12">
+                                    <p>No comment added yet !</p>
+                                </div>
+                            </div>
+                            @endforelse
+                        </div>
+                        <div class="card-footer">
+                            @if (auth()->check())
+                                <form action="{{ route('frontend.blog-comment', $blog['id']) }}" method="POST">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-11">
+                                            <input type="text" class="form-control" name="comment" id="comment"
+                                                placeholder="Enter your comment">
+                                        </div>
+                                        <div class="col-1">
+                                            <button class="btn btn-primary" type="submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            @else
+                                <p>Please login to make comment.</p>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
