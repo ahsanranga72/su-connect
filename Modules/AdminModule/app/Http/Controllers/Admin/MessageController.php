@@ -21,10 +21,17 @@ class MessageController extends Controller
     public function index()
     {
         // select all Users + count how many message are unread from the selected user
-        $users = DB::select("select users.id, users.first_name, users.email, count(is_read) as unread 
-        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . auth()->id() . "
-        where users.id != " . auth()->id() . " 
-        group by users.id, users.first_name, users.email");
+        $users = DB::table('users')
+            ->select('users.id', 'users.first_name', 'users.last_name', 'users.user_type', DB::raw('count(is_read) as unread'))
+            ->leftJoin('messages', function ($join) {
+                $join->on('users.id', '=', 'messages.from')
+                    ->where('is_read', '=', 0)
+                    ->where('messages.to', '=', auth()->id());
+            })
+            ->where('users.id', '!=', auth()->id())
+            ->groupBy('users.id', 'users.first_name', 'users.last_name', 'users.user_type')
+            ->orderByDesc(DB::raw('(SELECT MAX(created_at) FROM messages WHERE messages.to = users.id)'))
+            ->get();
 
         return view('adminmodule::message.chat', ['users' => $users]);
     }
