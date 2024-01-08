@@ -23,6 +23,8 @@
         </td>
         <td class="text-center align-middle">
             <div class="g-2">
+                <a class="btn text-primary btn-sm" data-bs-toggle="tooltip" data-bs-original-title="Comments"
+                    href="{{ route('teacher.blogs.comment.get', $item['id']) }}"><span class="fe fe-message-circle fs-14"></span></a>
                 <a class="btn text-primary btn-sm" data-bs-toggle="tooltip" data-bs-original-title="Edit"
                     href="{{ route('teacher.blogs.edit', $item['id']) }}"><span class="fe fe-edit fs-14"></span></a>
                 <a class="btn text-danger btn-sm" href="javascript:void(0)" data-bs-toggle="tooltip"

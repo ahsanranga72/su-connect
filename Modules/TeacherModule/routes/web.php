@@ -45,6 +45,12 @@ Route::group(['namespace' => 'Teacher', 'prefix' => 'teacher', 'as' => 'teacher.
         Route::resource('blogs', 'BlogController');
         Route::group(['prefix' => 'blogs', 'as' => 'blogs.'], function () {
             Route::any('data/status-update/{id}', 'BlogController@status_update')->name('status-update');
+            //comment
+            Route::prefix('comment')->as('comment.')->group(function () {
+                Route::get('get/{blog_id}', 'BlogController@comment_get')->name('get');
+                Route::post('store/{blog_id}', 'BlogController@comment_store')->name('store');
+                Route::delete('destroy/{comment_id}', 'BlogController@comment_destroy')->name('destroy');
+            });
         });
         //message
         Route::get('chat', 'MessageController@index')->name('chat');

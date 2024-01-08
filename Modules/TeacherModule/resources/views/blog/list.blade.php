@@ -1,6 +1,6 @@
 @extends('teachermodule::layouts.master')
 
-@section('page_title', 'Admin blogs list')
+@section('page_title', 'Teacher blogs list')
 
 @push('page_css')
     
