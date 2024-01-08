@@ -50,5 +50,11 @@ Route::group(['namespace' => 'Teacher', 'prefix' => 'teacher', 'as' => 'teacher.
         Route::get('chat', 'MessageController@index')->name('chat');
         Route::get('message/{id}', 'MessageController@getMessage')->name('message');
         Route::post('message', 'MessageController@sendMessage');
+        //profile
+        Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
+            Route::get('get', 'ProfileController@get')->name('get');
+            Route::post('update', 'ProfileController@update')->name('update');
+            Route::post('update-password', 'ProfileController@update_password')->name('update-password');
+        });
     });
 });
