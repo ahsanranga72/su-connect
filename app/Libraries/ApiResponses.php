@@ -97,3 +97,7 @@ const DEFAULT_REGISTRATION_REQUEST_200 = [
 const DEFAULT_FOLLOW_REQUEST_200 = [
     'message' => 'Follow request successfully submited.'
 ];
+
+const DEFAULT_PROFILE_UPDATE_200 = [
+    'message' => 'Profile successfully updated.'
+];

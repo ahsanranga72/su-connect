@@ -58,7 +58,7 @@
                                     height="30" width="30" alt="User Image" class="rounded-circle">
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="{{ route('student.profile.get') }}">Profile</a>
                                 <a class="dropdown-item" href="#" onclick="$('#logout-form').submit()">
                                     Log out
                                 </a>
