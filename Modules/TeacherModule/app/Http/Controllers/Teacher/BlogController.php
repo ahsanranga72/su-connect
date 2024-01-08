@@ -26,12 +26,12 @@ class BlogController extends Controller
     public function index(Request $request)
     {
         $blogs = $this->blog->with('owner')->where('created_by', auth()->id())
-        ->when($request->has('search'), function ($query) use ($request) {
-            $key = explode(' ', $request['search']);
-            foreach ($key as $value) {
-                $query->Where('title', 'like', "%{$value}%");
-            }
-        })->latest()->paginate(10);
+            ->when($request->has('search'), function ($query) use ($request) {
+                $key = explode(' ', $request['search']);
+                foreach ($key as $value) {
+                    $query->Where('title', 'like', "%{$value}%");
+                }
+            })->latest()->paginate(10);
 
         return view('teachermodule::blog.list', compact('blogs'));
     }
@@ -114,10 +114,13 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
-        $blog = $this->blog->where(['id' => $id])->first();
-        if(!empty($blog->image)){
+        $blog = $this->blog->with('comments')->where(['id' => $id])->first();
+        if (!empty($blog->image)) {
             file_remover('blog/images/', $blog->image);
         }
+        $blog->comments->each(function ($item, $key) {
+            $item->delete();
+        });
         $blog->delete();
         session()->flash('success', DEFAULT_200_DELETE['message']);
         return back();
@@ -151,7 +154,7 @@ class BlogController extends Controller
 
         return back()->with('success', DEFAULT_200_STORE['message']);
     }
-    
+
     public function comment_destroy($id)
     {
         $this->blog_comment->find($id)->delete();

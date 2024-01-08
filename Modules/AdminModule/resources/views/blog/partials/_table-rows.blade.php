@@ -8,7 +8,8 @@
         <td class="text-nowrap align-middle">{{ $item['title'] }}</td>
         <td class="text-nowrap align-middle">{!! $item['description'] !!}</td>
         <td class="text-nowrap align-middle text-capitalize">{{ $item->owner->first_name }} {{ $item->owner->last_name }}
-            ( {{ $item->owner->user_type }} )</td>
+            ({{ $item->owner->user_type }})
+        </td>
         <td class="text-center align-middle">
             <div class="form-group">
                 <label class="custom-switch form-switch mb-0 pt-2">
@@ -23,6 +24,9 @@
         </td>
         <td class="text-center align-middle">
             <div class="g-2">
+                <a class="btn text-primary btn-sm" data-bs-toggle="tooltip" data-bs-original-title="Comments"
+                    href="{{ route('admin.blogs.comment.get', $item['id']) }}"><span
+                        class="fe fe-message-circle fs-14"></span></a>
                 <a class="btn text-primary btn-sm" data-bs-toggle="tooltip" data-bs-original-title="Edit"
                     href="{{ route('admin.blogs.edit', $item['id']) }}"><span class="fe fe-edit fs-14"></span></a>
                 <a class="btn text-danger btn-sm" href="javascript:void(0)" data-bs-toggle="tooltip"

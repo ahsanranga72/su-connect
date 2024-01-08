@@ -8,14 +8,17 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\AdminModule\app\Models\Blog;
+use Modules\AdminModule\app\Models\BlogComment;
 
 class BlogController extends Controller
 {
     private $blog;
+    private $blog_comment;
 
-    public function __construct(Blog $blog)
+    public function __construct(Blog $blog, BlogComment $blog_comment)
     {
         $this->blog = $blog;
+        $this->blog_comment = $blog_comment;
     }
     /**
      * Display a listing of the resource.
@@ -114,6 +117,9 @@ class BlogController extends Controller
         if(!empty($blog->image)){
             file_remover('blog/images/', $blog->image);
         }
+        $blog->comments->each(function ($item, $key) {
+            $item->delete();
+        });
         $blog->delete();
         session()->flash('success', DEFAULT_200_DELETE['message']);
         return back();
@@ -123,5 +129,35 @@ class BlogController extends Controller
     {
         $this->blog->where('id', $id)->update(['is_active' => !$this->blog->find($id)->is_active]);
         return response()->json(response_structure(DEFAULT_200_UPDATE), 200);
+    }
+
+    public function comment_get($id)
+    {
+        $blog_id = $id;
+        $comments = $this->blog_comment->with('owner')->where('blog_id', $id)->latest()->paginate(10);
+
+        return view('adminmodule::blog.comment.list', compact('comments', 'blog_id'));
+    }
+
+    public function comment_store(Request $request, $id)
+    {
+        $request->validate([
+            'comment' => 'required|string'
+        ]);
+
+        $blog_comment = $this->blog_comment;
+        $blog_comment['blog_id'] = $id;
+        $blog_comment['comment'] = $request['comment'];
+        $blog_comment['created_by'] = auth()->id();
+        $blog_comment->save();
+
+        return back()->with('success', DEFAULT_200_STORE['message']);
+    }
+
+    public function comment_destroy($id)
+    {
+        $this->blog_comment->find($id)->delete();
+        session()->flash('success', DEFAULT_200_DELETE['message']);
+        return back();
     }
 }
