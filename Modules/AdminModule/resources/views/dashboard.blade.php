@@ -104,17 +104,5 @@
 @endsection
 
 @push('script')
-    <script src="{{ asset('assets/admin-module') }}/plugins/chart/Chart.bundle.js"></script>
-    <script src="{{ asset('assets/admin-module') }}/plugins/chart/rounded-barchart.js"></script>
-    <script src="{{ asset('assets/admin-module') }}/plugins/chart/utils.js"></script>
-
-    <!-- INTERNAL APEXCHART JS -->
-    <script src="{{ asset('assets/admin-module') }}/js/apexcharts.js"></script>
-    <script src="{{ asset('assets/admin-module') }}/plugins/apexchart/irregular-data-series.js"></script>
-
-    <!-- INTERNAL Flot JS -->
-    <script src="{{ asset('assets/admin-module') }}/plugins/flot/jquery.flot.js"></script>
-    <script src="{{ asset('assets/admin-module') }}/plugins/flot/jquery.flot.fillbetween.js"></script>
-    <script src="{{ asset('assets/admin-module') }}/plugins/flot/chart.flot.sampledata.js"></script>
-    <script src="{{ asset('assets/admin-module') }}/plugins/flot/dashboard.sampledata.js"></script>
+   
 @endpush
