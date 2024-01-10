@@ -46,6 +46,15 @@ class FrontendController extends Controller
         return back()->with('success', DEFAULT_FOLLOW_REQUEST_200['message']);
     }
 
+    public function delete_follow_request($teacher_user_id)
+    {
+        $this->follow_request->where('teacher_user_id', $teacher_user_id)
+            ->where('student_user_id', auth()->id())
+            ->first()->delete();
+
+        return back()->with('success', DEFAULT_200_UPDATE['message']);
+    }
+
     /**
      * Store a newly created resource in storage.
      */

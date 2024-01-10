@@ -35,6 +35,7 @@ Route::group(['namespace' => 'Student', 'prefix' => 'student', 'as' => 'student.
     Route::group(['middleware' => 'student'], function () {
         Route::get('teachers-list', 'FrontendController@teachers_list')->name('teachers-list');
         Route::get('send-follow-request/{teacher_user_id}', 'FrontendController@send_follow_request')->name('send-follow-request');
+        Route::get('delete-follow-request/{teacher_user_id}', 'FrontendController@delete_follow_request')->name('delete-follow-request');
         //message
         Route::get('chat', 'MessageController@index')->name('chat');
         Route::get('message/{id}', 'MessageController@getMessage')->name('message');

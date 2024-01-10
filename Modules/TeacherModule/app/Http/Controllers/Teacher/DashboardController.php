@@ -25,7 +25,7 @@ class DashboardController extends Controller
     {
         $follow_count = $this->follow_request->where('teacher_user_id', auth()->id())->where('status', 'accepted')->count();
         $blog_count = $this->blog->active()->where('created_by', auth()->id())->count();
-        $blogs = $this->blog->with('owner')->where('created_by', auth()->id())->latest()->paginate(5);
+        $blogs = $this->blog->with('owner')->latest()->paginate(5);
         return view('teachermodule::dashboard', compact('follow_count', 'blog_count', 'blogs'));
     }
 

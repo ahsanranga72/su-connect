@@ -24,7 +24,7 @@
                                 <th scope="col">First name</th>
                                 <th scope="col">Last name</th>
                                 <th scope="col">Department</th>
-                                <th scope="col">Action</th>
+                                <th scope="col" class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,13 +43,17 @@
                                     @php
                                         $send_request = $follow_requests->where('teacher_user_id', $teacher->id)->first();
                                     @endphp
-                                    <td>
+                                    <td class="text-center">
                                         @if (!empty($send_request))
                                             @if ($send_request['status'] === 'pending')
-                                                <a href="#" class="btn btn-info" disabled>Pending request</a>
+                                                <a href="#" class="btn btn-info btn-sm" disabled>Pending request</a>
+                                                <a href="{{ route('student.delete-follow-request', $teacher->id) }}"
+                                                    class="btn btn-danger btn-sm">Cancel request</a>
                                             @endif
                                             @if ($send_request['status'] === 'accepted')
-                                                <a href="#" class="btn btn-warning" disabled>Following</a>
+                                                <a href="#" class="btn btn-warning btn-sm" disabled>Following</a>
+                                                <a href="{{ route('student.delete-follow-request', $teacher->id) }}"
+                                                    class="btn btn-danger btn-sm">Unfollow</a>
                                             @endif
                                         @else
                                             <a href="{{ route('student.send-follow-request', $teacher['id']) }}"
